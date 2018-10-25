@@ -26,10 +26,10 @@ AS
 			UNION
 			SELECT * FROM Venta@TG
 			UNION
-			SELECT * FROM Venta@TG
+			SELECT * FROM Venta@MTY
 		) v
 		LEFT JOIN D_Tiempo dt ON trunc(v.fecha) = dt.fecha
-		LEFT JOIN D_Vendedor dv ON v.id_vendedor = dv.id_d_vendedor
+		LEFT JOIN D_Vendedor dv ON v.id_vendedor = dv.id_vendedor
 		WHERE trunc(v.fecha) BETWEEN trunc(v_fecha_inicial) AND trunc(v_fecha_final)
 		GROUP BY (dt.id_d_tiempo, dv.id_d_vendedor);
 BEGIN
