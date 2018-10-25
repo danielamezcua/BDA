@@ -17,5 +17,3 @@ INSERT INTO D_DEFECTO
 END ACTUALIZA_DEFECTOS;
 
 execute ACTUALIZA_DEFECTOS;
-
-select * from d_defecto;
