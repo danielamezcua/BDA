@@ -56,3 +56,6 @@ BEGIN
             END LOOP;
     	CLOSE c_ventas;
 END ACTUALIZA_VENTA_VEHICULO;
+
+execute ACTUALIZA_VENTA_VEHICULO('01/01/2000', '12/12/2018');
+commit;

@@ -56,3 +56,6 @@ BEGIN
 		FETCH c_ventas_vendedor INTO v_id_d_vendedor, v_id_d_tiempo, v_ventas_total, v_comision_total, v_numero_ventas;
 	END LOOP;
 END ACTUALIZA_VENTA_VENDEDOR;
+
+execute ACTUALIZA_VENTA_VENDEDOR('01/01/2000', '12/12/2018');
+commit;

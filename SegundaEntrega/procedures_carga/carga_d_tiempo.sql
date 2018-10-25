@@ -28,4 +28,9 @@ BEGIN
     	END LOOP;
 END ACTUALIZA_D_TIEMPO;
 
-execute ACTUALIZA_D_TIEMPO('01/01/1960', '12/12/2018');
+execute ACTUALIZA_D_TIEMPO('01/01/2000', '12/12/2018');
+/*
+Rango de fechas vantas:
+01/01/00
+12/09/18
+*/
