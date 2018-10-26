@@ -16,7 +16,7 @@ AS
 		WHERE fecha BETWEEN trunc(v_fecha_inicial) AND trunc(v_fecha_final);
 
 	cursor c_defectos_inventario(v_fecha_inicial IN DATE, v_fecha_final IN DATE) is
-		SELECT dt.id_d_tiempo, di.id_d_inventario, dd.id_d_defecto, count(1)
+		SELECT dt.id_d_tiempo, dd.id_d_defecto, di.id_d_inventario, count(1)
 		FROM 
 		(
 			SELECT * FROM INVENTARIO_DEFECTO@QURO
@@ -31,7 +31,7 @@ AS
 		LEFT JOIN D_Inventario di ON v.id_inventario = di.id_inventario
     LEFT JOIN D_Defecto dd ON v.id_tipo_defecto = dd.id_tipo_defecto
 		WHERE trunc(v.fecha_ingreso) BETWEEN trunc(v_fecha_inicial) AND trunc(v_fecha_final) 
-    group by dt.id_d_tiempo, di.id_d_inventario, dd.id_d_defecto;
+    group by dt.id_d_tiempo, dd.id_d_defecto, di.id_d_inventario;
 BEGIN
 	/* Borrar registros a actualizar */
 	v_fecha_inicial := FECHAINICIAL;
@@ -52,7 +52,8 @@ BEGIN
 	FETCH c_defectos_inventario INTO v_id_d_tiempo, v_id_d_defecto, v_id_d_inventario, v_total_defectos;
 	WHILE c_defectos_inventario%FOUND
 	LOOP
-		INSERT INTO H_VEHICULO_DEFECTOS VALUES (seq_h_vehiculo_defectos.nextval, v_id_d_defecto, v_id_d_tiempo, v_id_d_inventario, v_total_defectos);
+		INSERT INTO H_VEHICULO_DEFECTOS (ID_H_DEFECTO, ID_D_TIEMPO, ID_D_DEFECTO, ID_D_INVENTARIO, TOTAL_DEFECTOS)
+      VALUES (seq_h_vehiculo_defectos.nextval, v_id_d_tiempo, v_id_d_defecto, v_id_d_inventario, v_total_defectos);
 		FETCH c_defectos_inventario INTO v_id_d_tiempo, v_id_d_defecto, v_id_d_inventario, v_total_defectos;
 	END LOOP;
 END ACTUALIZA_DEFECTOS_VEHICULO;
